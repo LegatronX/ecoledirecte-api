@@ -175,9 +175,9 @@ Après exécution, votre calendrier affichera :
 
 | Événement | Horaire | Lieu |
 |-----------|---------|------|
-| 📚 MATHEMATIQUES | 08:00 - 09:00 | Salle 12 |
+| 📚 MATHÉMATIQUES | 08:00 - 09:00 | Salle 12 |
 | 🇬🇧 ANGLAIS LV1 | 09:00 - 10:00 | Salle 24 |
-| 💻 NUMERIQUE SC.INFORM. | 10:15 - 11:15 | Salle Info |
+| 💻 NUMÉRIQUE SC.INFORM. | 10:15 - 11:15 | Salle Info |
 
 ## Automatisation recommandée
 

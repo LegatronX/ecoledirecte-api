@@ -246,6 +246,20 @@ class TodoGenerator {
   }
 
   /**
+   * Échappe les caractères spéciaux pour iCalendar
+   * @param {string} text - Texte à échapper
+   * @returns {string} Texte échappé
+   */
+  escapeText(text) {
+    if (!text) return "";
+    return text
+      .replace(/\\/g, '\\\\')
+      .replace(/;/g, '\\;')
+      .replace(/,/g, '\\,')
+      .replace(/\n/g, '\\n');
+  }
+
+  /**
    * Génère le contenu du fichier iCalendar VTODO
    * @returns {string} Contenu du fichier .ics
    */
@@ -254,11 +268,11 @@ class TodoGenerator {
       "BEGIN:VCALENDAR",
       "VERSION:2.0",
       "PRODID:-//EcoleDirecte API//iOS Shortcuts//FR",
-      `X-WR-CALNAME:${this.listName}`,
+      `X-WR-CALNAME:${this.escapeText(this.listName)}`,
       "CALSCALE:GREGORIAN"
     ];
 
-    const formatDateTime = (date) => {
+    const formatDateTime = () => {
       const now = new Date();
       const pad = (n) => n.toString().padStart(2, '0');
       const year = now.getFullYear();
@@ -274,10 +288,10 @@ class TodoGenerator {
       lines.push("BEGIN:VTODO");
       lines.push(`UID:${todo.uid}`);
       lines.push(`DTSTAMP:${formatDateTime()}`);
-      lines.push(`SUMMARY:${todo.summary.replace(/,/g, '\\,')}`);
+      lines.push(`SUMMARY:${this.escapeText(todo.summary)}`);
       
       if (todo.description) {
-        lines.push(`DESCRIPTION:${todo.description.replace(/\n/g, '\\n').replace(/,/g, '\\,')}`);
+        lines.push(`DESCRIPTION:${this.escapeText(todo.description)}`);
       }
       
       if (todo.due) {
@@ -328,8 +342,33 @@ class TodoGenerator {
             // Décoder le contenu base64 et retirer le HTML
             try {
               const decoded = Data.fromBase64String(detail.aFaire.contenu).toRawString();
-              const cleanText = decoded.replace(/<[^>]+>/g, '').trim();
-              description += `\n\n${cleanText}`;
+              // Extraction du texte brut en supprimant toutes les balises
+              // Utilise une approche basée sur les caractères pour éviter les problèmes de regex
+              let cleanText = '';
+              let inTag = false;
+              for (let i = 0; i < decoded.length; i++) {
+                const char = decoded[i];
+                if (char === '<') {
+                  inTag = true;
+                } else if (char === '>') {
+                  inTag = false;
+                } else if (!inTag) {
+                  cleanText += char;
+                }
+              }
+              // Décoder les entités HTML communes
+              // Note: &amp; doit être décodé en dernier pour éviter le double-décodage
+              cleanText = cleanText
+                .replace(/&nbsp;/g, ' ')
+                .replace(/&lt;/g, '<')
+                .replace(/&gt;/g, '>')
+                .replace(/&quot;/g, '"')
+                .replace(/&#39;/g, "'")
+                .replace(/&amp;/g, '&')
+                .trim();
+              if (cleanText) {
+                description += `\n\n${cleanText}`;
+              }
             } catch {
               // Ignorer les erreurs de décodage
             }

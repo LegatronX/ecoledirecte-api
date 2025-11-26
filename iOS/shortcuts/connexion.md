@@ -4,7 +4,7 @@ Ce raccourci permet de se connecter à l'API EcoleDirecte et de sauvegarder le t
 
 ## Fonctionnement
 
-1. Récupération du cookie GTK (requis depuis le 24/03/2025)
+1. Récupération du cookie GTK (requis depuis mars 2025)
 2. Envoi des identifiants à l'API
 3. Sauvegarde du token dans les fichiers Raccourcis
 

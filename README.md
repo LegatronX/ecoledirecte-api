@@ -7,6 +7,18 @@
 >
 > L'implémentation de ce système est décrite [ici](#-concernant-la-connexion-qcm).
 
+## 📱 Solution iPhone
+
+Une solution complète pour iPhone est disponible ! Elle permet d'accéder aux données EcoleDirecte et de les exporter automatiquement vers le Calendrier iOS, l'app Rappels, et plus encore.
+
+👉 **[Voir la solution iPhone](./iOS/README.md)**
+
+Fonctionnalités :
+- 📅 Export automatique de l'emploi du temps vers le Calendrier
+- 📝 Export des devoirs vers l'app Rappels
+- 🔄 Automatisation quotidienne via les Raccourcis iOS
+- 📊 Widgets pour afficher les prochains cours et devoirs
+
 ## Introduction
 
 
@@ -23,6 +35,7 @@ Si jamais cette documentation vient a être défaillante, merci de faire une iss
 
 Juste un rapide sommaire pour naviguer plus facilement dans la documentation.
 
+- [📱 Solution iPhone](./iOS/README.md) ⭐ **NOUVEAU**
 - [Format de la documentation](#format-de-la-documentation)
 - [Utilisation de l'API](#utilisation-de-lapi)
   - [Requêtes authentifiées](#requêtes-authentifiées)
